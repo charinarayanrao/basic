@@ -1,0 +1,92 @@
+Counting Pairs
+---------------
+
+import java.io.*;
+import java.math.*;
+import java.security.*;
+import java.text.*;
+import java.util.*;
+import java.util.concurrent.*;
+import java.util.regex.*;
+
+
+class Result {
+
+    /*
+     * Complete the 'countPairs' function below.
+     *
+     * The function is expected to return an INTEGER.
+     * The function accepts following parameters:
+     *  1. INTEGER_ARRAY numbers
+     *  2. INTEGER k
+     */
+
+    public static int countPairs(List<Integer> numbers, int k) {
+    // Write your code here
+        /* int[] arr = ArrayUtils.toPrimitive(numbers.toArray(new Integer[numbers.size()]));
+         int count = 0; 
+  
+        for (int i = 0; i < arr.length; i++)  
+        { 
+            for (int j = i + 1; j < arr.length; j++) 
+                if (arr[i] - arr[j] == k || arr[j] - arr[i] == k) 
+                    count++; 
+        } 
+        return count;*/
+
+        HashSet<Integer> start = new HashSet<>();
+        HashSet<Integer> end = new HashSet<>();
+        List<Pair> result = new ArrayList<>();
+        for (int i : numbers) {
+            start.add(i);
+            end.add(i+k);
+        }
+        for (int i : end) {
+            if (start.contains(i)) {
+                result.add(new Pair(i-k, i));
+            }
+        }
+        int result_size=result.size();
+        return result_size;
+
+        }
+
+        private static class Pair {
+            public int a;
+            public int b;
+            public Pair(int a, int b) {
+                this.a = a;
+                this.b = b;
+            }
+            public String toString() {
+                return "("+a+","+b+")";
+        }
+}
+
+}
+
+public class Solution {
+    public static void main(String[] args) throws IOException {
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
+
+        int numbersCount = Integer.parseInt(bufferedReader.readLine().trim());
+
+        List<Integer> numbers = new ArrayList<>();
+
+        for (int i = 0; i < numbersCount; i++) {
+            int numbersItem = Integer.parseInt(bufferedReader.readLine().trim());
+            numbers.add(numbersItem);
+        }
+
+        int k = Integer.parseInt(bufferedReader.readLine().trim());
+
+        int result = Result.countPairs(numbers, k);
+
+        bufferedWriter.write(String.valueOf(result));
+        bufferedWriter.newLine();
+
+        bufferedReader.close();
+        bufferedWriter.close();
+    }
+}

@@ -1,0 +1,63 @@
+Left and Right Shifting of Strings
+-----------------------------------
+
+
+import java.io.*;
+import java.math.*;
+import java.security.*;
+import java.text.*;
+import java.util.*;
+import java.util.concurrent.*;
+import java.util.regex.*;
+
+
+class Result {
+
+    /*
+     * Complete the 'getShiftedString' function below.
+     *
+     * The function is expected to return a STRING.
+     * The function accepts following parameters:
+     *  1. STRING s
+     *  2. INTEGER leftShifts
+     *  3. INTEGER rightShifts
+     */
+
+    public static String getShiftedString(String s, int leftShifts, int rightShifts) {
+        int a=s.length();
+        int leftShift=0,rightShift=0;
+        
+            leftShift=leftShifts % a;
+        
+            rightShift=rightShifts % a;
+    // Write your code here
+        String s1 = s.substring(leftShift) + s.substring(0, leftShift);
+        int length=s1.length()-rightShift;
+        String s2=s1.substring(length) + s1.substring(0, length);
+        return s2;
+
+
+    }
+
+}
+
+public class Solution {
+    public static void main(String[] args) throws IOException {
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
+
+        String s = bufferedReader.readLine();
+
+        int leftShifts = Integer.parseInt(bufferedReader.readLine().trim());
+
+        int rightShifts = Integer.parseInt(bufferedReader.readLine().trim());
+
+        String result = Result.getShiftedString(s, leftShifts, rightShifts);
+
+        bufferedWriter.write(result);
+        bufferedWriter.newLine();
+
+        bufferedReader.close();
+        bufferedWriter.close();
+    }
+}

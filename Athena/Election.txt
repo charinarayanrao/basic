@@ -1,0 +1,78 @@
+Election (Find the winner)
+Who got max vote.. if multiple person have same no. of vote then Alpahetical last person
+----------------------------------------------------------------------------------------
+import java.io.*;
+import java.math.*;
+import java.security.*;
+import java.text.*;
+import java.util.*;
+import java.util.concurrent.*;
+import java.util.regex.*;
+
+
+
+class Result {
+
+    /*
+     * Complete the 'writeIn' function below.
+     *
+     * The function is expected to return a STRING.
+     * The function accepts STRING_ARRAY ballot as parameter.
+     */
+
+    public static String writeIn(List<String> ballot) {
+    // Write your code here
+
+        Map<String,Integer> map = new HashMap<String, Integer>(); 
+            for (String str : ballot) 
+            { 
+                if (map.keySet().contains(str)) 
+                    map.put(str, map.get(str) + 1); 
+                else
+                    map.put(str, 1); 
+            } 
+  
+            int max = 0; 
+            String winner = ""; 
+            for (Map.Entry<String,Integer> entry : map.entrySet()) 
+            { 
+                String key  = entry.getKey(); 
+                Integer value = entry.getValue(); 
+                if (value > max) 
+                { 
+                    max = value; 
+                    winner = key; 
+                } 
+
+                else if (value == max &&  winner.compareTo(key) < 0) 
+                    winner = key; 
+            } 
+           return winner;
+
+    }
+
+}
+
+public class Solution {
+    public static void main(String[] args) throws IOException {
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
+
+        int ballotCount = Integer.parseInt(bufferedReader.readLine().trim());
+
+        List<String> ballot = new ArrayList<>();
+
+        for (int i = 0; i < ballotCount; i++) {
+            String ballotItem = bufferedReader.readLine();
+            ballot.add(ballotItem);
+        }
+
+        String result = Result.writeIn(ballot);
+
+        bufferedWriter.write(result);
+        bufferedWriter.newLine();
+
+        bufferedReader.close();
+        bufferedWriter.close();
+    }
+}
